@@ -311,6 +311,7 @@ $ xcode-select --install # 安装 xcode-select
 $ brew install openssl readline xz
 $ brew update
 $ brew install pyenv # 安装 pyenv
+$ echo 'export PATH="/Users/${USER}/.pyenv:$PATH"' >> ~/.zshrc
 $ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 $ brew install pyenv-virtualenv # 安装 pyenv-virtualenv 插件
 $ echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshrc
