@@ -285,6 +285,26 @@ $ pyenv deactivate
 $ pyenv uninstall PROJECT_NAME
 ```
 
+### 卸载
+
+由于 pyenv 是自包含(self-contained)的，基本上 pyenv 安装的，或创建的东西都存在在 ~/.pyenv 目录下。所以，卸载 pyenv 只需要进行以下步骤：
+
+1. 删除  ~/.pyenv 目录
+
+   ```bash
+   $ rm -rf "$HOME/.pyenv"
+   ```
+
+2. 删除安装时添加进 ~/.bashrc (或 ~/.zshrc) 文件的类似以下的内容
+
+   ```bash
+   export PATH="/home/ubuntu/.pyenv/bin:$PATH"
+   eval "$(pyenv init -)"
+   eval "$(pyenv virtualenv-init -)"
+   ```
+
+   
+
 ## 依赖环境管理 virtualenv
 
 ### 作用
