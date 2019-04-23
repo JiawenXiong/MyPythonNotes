@@ -287,7 +287,7 @@ $ pyenv uninstall PROJECT_NAME
 
 ### 卸载
 
-由于 pyenv 是自包含(self-contained)的，基本上 pyenv 安装的，或创建的东西都存在在 ~/.pyenv 目录下。所以，卸载 pyenv 只需要进行以下步骤：
+由于 pyenv 是自包含 (self-contained) 的，基本上 pyenv 安装的，或创建的东西都存在在 ~/.pyenv 目录下。所以，卸载 pyenv 只需要进行以下步骤：
 
 1. 删除  ~/.pyenv 目录
 
@@ -303,7 +303,80 @@ $ pyenv uninstall PROJECT_NAME
    eval "$(pyenv virtualenv-init -)"
    ```
 
-   
+### Mac 上安装
+
+```bash
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" #安装 homebrew
+$ xcode-select --install # 安装 xcode-select
+$ brew install openssl readline xz
+$ brew update
+$ brew install pyenv # 安装 pyenv
+$ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+$ brew install pyenv-virtualenv # 安装 pyenv-virtualenv 插件
+$ echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshrc
+$ source ~/.zshrc
+```
+
+#### 问题
+
+在 `pyenv install` 某个版本 python 会出现编译问题
+
+```bash
+pyenv install 3.7.1
+python-build: use openssl from homebrew
+python-build: use readline from homebrew
+Downloading Python-3.7.1.tar.xz...
+-> https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz
+Installing Python-3.7.1...
+python-build: use readline from homebrew
+
+BUILD FAILED (OS X 10.14 using python-build 1.2.7-11-g835707da)
+
+Inspect or clean up the working tree at /var/folders/p0/_5lf8w5d0sd92mnyq2zj20dm0000gn/T/python-build.20181027164510.63194
+Results logged to /var/folders/p0/_5lf8w5d0sd92mnyq2zj20dm0000gn/T/python-build.20181027164510.63194.log
+
+Last 10 log lines:
+checking for --with-icc... no
+checking for gcc... clang
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... configure: error: in `/var/folders/p0/_5lf8w5d0sd92mnyq2zj20dm0000gn/T/python-build.20181027164510.63194/Python-3.7.1':
+configure: error: cannot run C compiled programs.
+If you meant to cross compile, use `--host'.
+See `config.log' for more details
+make: *** No targets specified and no makefile found.  Stop.
+```
+
+解决方法如下
+
+```bash
+$ cd /Library/Developer/CommandLineTools/Packages/
+$ open macOS_SDK_headers_for_macOS_10.14.pkg
+```
+
+问题2：
+
+```bash
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [python.exe] Error 1
+```
+
+解决方案：
+
+````bash
+$ brew uninstall binutils
+````
+
+### Mac 上卸载
+
+```bash
+$ rm -rf $(pyenv root)
+$ brew uninstall pyenv
+```
+
+
 
 ## 依赖环境管理 virtualenv
 
@@ -414,15 +487,32 @@ Anaconda是一个用于科学计算的Python发行版，支持 Linux, Mac, Windo
 
 1. vinta/awesome-python: A curated list of awesome Python frameworks, libraries, software and resources
    https://github.com/vinta/awesome-python
+   
 2. jobbole/awesome-python-cn: Python资源大全中文版，包括：Web框架、网络爬虫、模板引擎、数据库、数据可视化、图片处理等，由伯乐在线持续更新。
-   https://github.com/jobbole/awesome-python-cn
+   https://github.com/jobbewesdsole/awesome-python-cn
+   
 3. 我的Python开发总结 | Wong Page
    https://blog.wongxinjie.com/2017/03/01/%E6%88%91%E7%9A%84Python%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/
+   
 4. 一文总结学习 Python 的 14 张思维导图 - CSDN资讯 - CSDN博客
    https://blog.csdn.net/csdnnews/article/details/78248699
+   
 5. 用pyenv和virtualenv搭建多版本python环境 - 简书
-   https://www.jianshu.com/p/08c9b35b35d6
+   https://we'we's'd'sww.jianshu.com/p/08c9b35b35d6
+   
 6. virtualenv - 廖雪峰的官方网站
    https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432712108300322c61f256c74803b43bfd65c6f8d0d0000
+   
 7. 使用 Anaconda 管理 Python 环境 - 简书
    https://www.jianshu.com/p/cdc03bf45008
+
+### Mac Pyenv install 问题
+
+8. pyenv install cannot work
+   https://gist.github.com/tosik/061d3155112332d3c83ef7f7014f2ddd
+
+2. stdio.h file not found error on macOS Sierra · Issue #338 · frida/frida
+   https://github.com/frida/frida/issues/338
+
+3. Failed to build on Mac OS 10.11.5 · Issue #640 · pyenv/pyenv
+   https://github.com/pyenv/pyenv/issues/640
