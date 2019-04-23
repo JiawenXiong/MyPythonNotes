@@ -294,17 +294,55 @@ $ pyenv uninstall PROJECT_NAME
 - 保持环境的干净
 - 解决包冲突问题
 
-### 使用
+### 安装
 
 ```bash
-$ mkvirtualenv deom # 创建虚拟环境
-$ workon demo # 激活虚拟环境
-$ deactive # 在虚拟环境中退出
-$ pip freeze > requirements.txt # 在虚拟环境中导出项目的依赖包
-$ rmvirtualenv # 删除虚拟环境
+$ pip install virtualenv
 ```
 
-### pyenv virtual
+### 使用示例
+
+1. 创建新项目
+
+  ```bash
+  $ mkdir myproject
+  $ cd myproject/
+  ```
+
+2. 创建虚拟环境
+
+   ```bash
+   $ virtualenv --no-site-packages venv
+   ```
+   1. 参数 `–no-site-packages`，已经安装到系统`Python`环境中的所有第三方包都不会复制过来，这样，我们就得到了一个不带任何第三方包的“干净”的Python运行环境
+   2. 参数 `–system-site-packages`，虚拟环境会继承`/usr/lib/python2.7/site-packages`下的所有库。如果想依赖系统包目录，则可以使用此功能。如果您想要与全局系统隔离，请不要使用此参数。
+
+3. 激活虚拟环境
+
+   ```bash
+   $ source venv/bin/activate
+   ```
+
+   命令提示符会多一个`venv`前缀，表示当前环境是一个名为`venv`的`Python`环境。 
+   下面正常安装各种第三方包，并运行python命令：
+
+4. 退出虚拟环境
+
+   ```bash
+   (venv)$ deactivate 
+   ```
+
+5. 指定python版本，创建虚拟环境
+
+   ```bash
+   $ virtualenv -p /usr/bin/python2.7 venv
+   ```
+
+### 总结
+
+问题在于，不用 `pyenv` 的情况下，这里的 `python` 是怎么支持多版本的？似乎 `virtualenv` 只能用于创建干净的项目环境，防止依赖冲突。似乎还是在pyenv中使用`pyenv-virtualenv` 插件更合适。
+
+
 
 ## 包管理 pip
 
@@ -328,25 +366,23 @@ index-url = http://mirrors.aliyun.com/pypi/simple
 
 ## 项目构建
 
-
+* todo
 
 ## 项目打包
 
-
+* todo
 
 ## 项目安装包
 
-
+* todo
 
 ## 推荐 IDE
 
-
-
-
+* todo
 
 ## 关键语法特性
 
-
+* todo
 
 ## Anaconda
 
@@ -366,5 +402,7 @@ Anaconda是一个用于科学计算的Python发行版，支持 Linux, Mac, Windo
    https://blog.csdn.net/csdnnews/article/details/78248699
 5. 用pyenv和virtualenv搭建多版本python环境 - 简书
    https://www.jianshu.com/p/08c9b35b35d6
-6. 使用 Anaconda 管理 Python 环境 - 简书
+6. virtualenv - 廖雪峰的官方网站
+   https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432712108300322c61f256c74803b43bfd65c6f8d0d0000
+7. 使用 Anaconda 管理 Python 环境 - 简书
    https://www.jianshu.com/p/cdc03bf45008
